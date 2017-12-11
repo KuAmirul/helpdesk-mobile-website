@@ -80,7 +80,7 @@
         <br><br><br><br>
         <div class="ui-grid-b">
 			<form action="form.asp" method="get">
-			No Aduan : <input type="text" name="id" size="20" />
+			No Aduan : <input type="text" name="id" size="20" pattern=".{8,}" required title="8 characters minimum" />
 			<input type="submit" value="Submit" />
 			</form>
         </div>
