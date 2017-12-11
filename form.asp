@@ -5,7 +5,7 @@
   -->
 
 <head>
-    <title>Test</title>
+    <title>Unimap Helpdesk</title>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
     <!-- see http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag -->
@@ -90,11 +90,7 @@
 			Dim CurrentMonth:CurrentMonth = Month(Date())
 			Dim CurrentDay:CurrentDay = Day(Date())
 			Dim CurrentYear:CurrentYear = Year(Date())
-			' response.write("The current system date is: ")
-			' response.write((Month(Date))&" "&(Year(Date))&" "&CurrentYear &"<br/>")
-		%>
 
-		        <%
 	
 	Dim strDbConnection
 	Dim objConn
@@ -127,128 +123,143 @@
 	query = "SELECT id_penyelesai,tarikh, catatan1, lokasi_kerosakan, penyelesaian1, no_aduan, detail_lokasi, nama , no_tel, emelpengguna, jabatanid  FROM hd_laporan_pengguna WHERE no_aduan LIKE'" & param & "%'"
 	Set objRS = objConn.Execute(query)
 
-%>	
-	        <div role="main" class="ui-content">
-			
-<table data-role="table" id="report"  class="ui-responsive">
-		<tbody>
-                <thead>
-					<tr></tr>
-                </thead>
-						<tr>
-						  <th >No Aduan</th>
-							<td>
-							<%if param = "" Then
-								response.write("")				
+	On Error Resume Next
+	if objRS.EOF=True Then
+				response.write("No Aduan Tidak Dijumpai")	
+				objRS.Close()
+				Set objRS = Nothing
+				objConn.Close()
+				Set objConn = Nothing
+	Else			
+		%>
+
+                <div role="main" class="ui-content">
+
+                    <table data-role="table" id="report" class="ui-responsive">
+                        <tbody>
+                            <thead>
+                                <tr></tr>
+                            </thead>
+                            <tr>
+                                <th>No Aduan</th>
+                                <td>
+                                    <%if param = "" Then
+								response.write("Not Found")				
 								Else
 								response.write objRS("no_aduan")				
 								End If
-							%>		
-							</td>
-						</tr>
-				        <tr>
-						  <th >ID Penyelesai</th>
-							<td>
-							<%if param = "" Then
+							%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>ID Penyelesai</th>
+                                <td>
+                                    <%if param = "" Then
 								response.write("")				
 								Else
 								response.write objRS("id_penyelesai")				
 								End If
-							%>		
-							</td>
-						</tr>
-						<tr>
-						  <th>Tarikh Laporan</th>
-							<td>
-							<%if param = "" Then
+							%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Tarikh Laporan</th>
+                                <td>
+                                    <%if param = "" Then
 								response.write("")			
 								Else
 								response.write objRS("tarikh")			
 								End If
-							%>	
-							</td>
-						</tr>
-						<tr>
-						  <th>Laporan</th>
-							<td>
-							<%if param = "" Then
+							%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Laporan</th>
+                                <td>
+                                    <%if param = "" Then
 								response.write("")				
 								Else
 								response.write objRS("catatan1")			
 								End If
-							%>	
-							</td>
-						</tr>
-						<tr>
-						  <th>Lokasi Kerosakan</th>
-							<td>
-							<%if param = "" Then
+							%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Lokasi Kerosakan</th>
+                                <td>
+                                    <%if param = "" Then
 								response.write("")				
 								Else
 								response.write objRS("detail_lokasi")	
 								End If
-							%>	
-							</td>
-						</tr>
-						<tr>
-						  <th>Nama Pengguna</th>
-							<td>
-							<%if param = "" Then
+							%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Nama Pengguna</th>
+                                <td>
+                                    <%if param = "" Then
 								response.write("")				
 								Else
 								response.write objRS("nama")			
 								End If
-							%>	
-							</td>
-						</tr>
-						<tr>
-						  <th>Emel Pengguna</th>
-							<td>
-							<%if param = "" Then
+							%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Emel Pengguna</th>
+                                <td>
+                                    <%if param = "" Then
 								response.write("")				
 								Else
 								response.write objRS("emelpengguna")			
 								End If
-							%>	
-							</td>
-						</tr>
-						<tr>
-						  <th>Jabatan</th>
-							<td>
-							<%if param = "" Then
+							%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Jabatan</th>
+                                <td>
+                                    <%if param = "" Then
 								response.write("")				
 								Else
 								response.write objRS("jabatanid")			
 								End If
-							%>	
-							</td>
-						</tr>
-						<tr>
-						  <th>Penyelesaian</th>
-							<td>
-							<%if param = "" Then
+							%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Penyelesaian</th>
+                                <td>
+                                    <%if param = "" Then
 								response.write("")				
 								Else
 								response.write objRS("penyelesaian1")			
 								End If
-							%>	
-							</td>
-						</tr>
-		</tbody>
-</table>
-			
-<%
+							%>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    <%		
+				
+				
+	End If		
+	
+
 	objRS.Close()
 	Set objRS = Nothing
 	objConn.Close()
 	Set objConn = Nothing	
-%>	
+%>
 
-	
-        </div>
 
-        <div data-role="footer">
-        </div>
+                </div>
+
+                <div data-role="footer">
+                </div>
     </div>
 
 
